@@ -1,0 +1,1 @@
+pyinstaller -w -F --add-binary "./chromedriver.exe;." auto_keta.spec
