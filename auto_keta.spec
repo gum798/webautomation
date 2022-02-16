@@ -4,10 +4,9 @@
 block_cipher = None
 
 a = Analysis(['auto_keta.py'],
-             pathex=['D:\\0020.Project\\PythonProjects\\웹자동화'],
-             binaries=[('./chromedriver.exe', '.')],
+             pathex=['c:\\0020.project\\PythonProjects\\webautomation'],
              datas=[],
-             hiddenimports=["pywinauto","win32api"],
+             hiddenimports=["pywinauto","win32api","chromedriver_autoinstaller"],
              hookspath=[],
              hooksconfig={},
              runtime_hooks=[],

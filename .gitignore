@@ -1,1 +1,4 @@
-build/*
+build/
+chromedriver/
+keta_install/
+build/auto_keta/

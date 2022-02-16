@@ -15,16 +15,26 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
+import chromedriver_autoinstaller
 
-if __debug__:
-    print("")
-else:
-    if sys.argv[-1] != 'asadmin':
-        script = os.path.abspath(sys.argv[0])
-        params = ' '.join([script] + sys.argv[1:] + ['asadmin'])
-        # win32api.ShellExecute(lpVerb='runas', lpFile=sys.executable, lpParameters=params)
-        win32api.ShellExecute(0, 'runas', sys.executable, params,'c:\keta',0)
-        sys.exit()
+chromedriver_autoinstaller.install(path="C:/keta/")
+
+
+bDebug = False
+
+# if bDebug:
+#     print("")
+#     # messagebox.showinfo("파라미터", "디버그모드") #, parent=topWindow)
+# else:
+#     # messagebox.showinfo("파라미터", "운영모드") #, parent=topWindow)
+#     if sys.argv[-1] != 'asadmin':
+#         script = os.path.abspath(sys.argv[0])
+#         params = ' '.join(sys.argv[1:] + ['asadmin'])
+#         # win32api.ShellExecute(lpVerb='runas', lpFile=sys.executable, lpParameters=params)
+#         # messagebox.showinfo(script, params) #, parent=topWindow)
+#         # win32api.ShellExecute(0, 'runas', script, params,'c:\keta',0)
+#         win32api.ShellExecute(0, None, script, params, None, 0)
+#         sys.exit()
 
 
 root = Tk()
@@ -67,6 +77,7 @@ try:
     shutil.rmtree(r"C:\\keta\\tmp")
 except:
     # messagebox.showwarning("WARNING", "C:\\keta\\tmp 폴더를 삭제할 수 없습니다. 수동으로 삭제해 주세요")
+    print(sys.exc_info())
     print("C:\\keta\\tmp 폴더를 삭제할 수 없습니다. 수동으로 삭제해 주세요")
 
 try:
@@ -94,7 +105,12 @@ try:
 
 
     #FTP접속
-    ftp = FTP('121.78.145.131')
+    if bDebug:
+        ftp = FTP('121.78.118.213')
+        # ftp = FTP('121.78.145.131')
+    else:
+        ftp = FTP('121.78.145.131')
+
     ftp.login("ftpketa","ftpketa!234")
     print(ftp.retrlines('LIST'))
     srcDir, srcFileName = path_parser(imgPassport)
@@ -122,6 +138,8 @@ try:
     else:
         # driver = webdriver.Chrome(chrome_options=options)
         driver = webdriver.Chrome()
+        # driver = webdriver.Chrome(driver_path)
+        
 
     url = 'https://www.k-eta.go.kr/portal/apply/viewstep1.do'
     driver.get(url)
